@@ -13,34 +13,34 @@ public class Digimon {
     //CONSTRUCTOR VACIO
     //Digimon d1 = new Digimon();
     public Digimon() {
-        String nombreDig = "";
-        int ataque = 0;
-        int defensa = 0;
-        Tipo tipo = Tipo.NULO;
-        int nivel = 1;
-        String nombreDigEvo = "";
+        nombreDig = "";
+        ataque = 0;
+        defensa = 0;
+        tipo = Tipo.NULO;
+        nivel = 1;
+        nombreDigEvo = "";
     }
 
     //CONSTRUCTOR CON SOLO NOMBRE
     //Digimon d2 = new Digimon("Pepe");
     public Digimon(String nombreDig) {
         this.nombreDig = nombreDig;
-        int ataque = 0;
-        int defensa = 0;
-        Tipo tipo = Tipo.NULO;
-        int nivel = 1;
-        String nombreDigEvo = "";
+        ataque = 0;
+        defensa = 0;
+        tipo = Tipo.NULO;
+        nivel = 1;
+        nombreDigEvo = "";
     }
 
     //CONSTRUCTOR CON NOMBRE Y TIPO
     //Digimon d3 = new Digimon("Pepe",Tipo.PLANTA);
     public Digimon(String nombreDig, Tipo tipo) {
         this.nombreDig = nombreDig;
-        int ataque = 0;
-        int defensa = 0;
+        ataque = 0;
+        defensa = 0;
         this.tipo= tipo;
-        int nivel = 1;
-        String nombreDigEvo = "";
+        nivel = 1;
+        nombreDigEvo = "";
     }
 
     public String getNombreDig() {
