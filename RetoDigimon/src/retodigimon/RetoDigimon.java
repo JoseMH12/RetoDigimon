@@ -4,6 +4,8 @@
  */
 package retodigimon;
 
+import java.sql.*;
+
 /**
  *
  * @author auron
@@ -13,15 +15,14 @@ public class RetoDigimon {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        Jugador j1 = new Jugador();
-        Jugador j2 = new Jugador("Jose");
-        Jugador j3 = new Jugador("Andres", "123");
-        Digimon d1 = new Digimon();
-        Digimon d2 = new Digimon("Metalgreimon");
-        Digimon d3 = new Digimon("Agumon", Tipo.VACUNA);
+    public static void main(String[] args) throws Exception {
 
-        System.out.println(d3.getNombreDig() + " " + d3.getTipo());
+        try {
+            Conexion con = new Conexion();
+            con.getConexion();
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
     }
-    
+
 }
