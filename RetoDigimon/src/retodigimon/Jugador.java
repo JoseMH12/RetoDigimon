@@ -1,5 +1,7 @@
 package retodigimon;
 
+import Sleer1.SLeer1;
+
 public class Jugador {
     
     //ATRIBUTOS DE LA CLASE
@@ -11,26 +13,8 @@ public class Jugador {
     //CONSTRUCTOR VACIO
     //Jugador j1 = new Jugador();
     public Jugador() {
-        nick = "";
-        contrasenya = "";
-        partidas_ganadas = 0;
-        partidas_jugadas = 0;
-    }
-
-    //CONSTRUCTOR CON SOLO NOMBRE
-    //Jugador j2 = new Jugador("Pepe");
-    public Jugador(String nick) {
-        this.nick = nick;
-        contrasenya = "";
-        partidas_ganadas = 0;
-        partidas_jugadas = 0;
-    }
-
-    //CONSTRUCTOR CON NOMBRE Y CONTRASEÑA
-    //Jugador j3 = new Jugador("Pepe","123");
-    public Jugador(String nick, String contrasenya) {
-        this.nick = "Pepe";
-        this.contrasenya = "123";
+        this.nick = SLeer1.datoString("Nombre del jugador: ");
+        this.contrasenya = SLeer1.datoString("Contraseña del jugador: ");
         partidas_ganadas = 0;
         partidas_jugadas = 0;
     }

@@ -3,6 +3,11 @@ package retodigimon;
 import Sleer1.SLeer1;
 
 public class Menu {
+
+    public Menu(){
+        int opcion = muestraMenu();
+        menuPrincipal(opcion);
+    }
     
     public static int muestraMenu() {
         System.out.println("------ Bienvenido al mundo digimon ------\n");
@@ -14,15 +19,20 @@ public class Menu {
         System.out.println("\t6 - Modificar digimon");
         System.out.println("\n\t7 - Borrar datos");
         System.out.println("\t8 - Salir");
-
-        int opcion = SLeer1.datoInt("\nElige una opción: ");
+        
+        int opcion = SLeer1.datoInt("Elige una opción: ");
         return opcion;
     }
 
     public static void menuPrincipal(int opcion) {
+        SLeer1.limpiar();
         switch (opcion) {
             case 1:
                 System.out.println("\nHas elegido crear un nuevo jugador");
+
+                Jugador j1 = new Jugador();
+
+                System.out.println(j1.getNick() + " - " + j1.getContrasenya());
                 break;
             case 2:
                 System.out.println("\nHas elegido eliminar un nuevo jugador");
@@ -45,9 +55,9 @@ public class Menu {
             case 8:
                 System.out.println("\nSaliendo del programa...");
                 break;
-            default:
-                System.out.println("\nOpción no válida");
-                break;
+            default: 
+                System.out.println("Opción no válida, introduce una opción entre 1 y 8...\n\n"); 
+                menuPrincipal(muestraMenu());
         }
     }
 }
