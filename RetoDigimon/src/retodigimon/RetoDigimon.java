@@ -4,8 +4,6 @@
  */
 package retodigimon;
 
-import java.sql.*;
-
 /**
  *
  * @author auron
@@ -18,7 +16,7 @@ public class RetoDigimon {
     public static void main(String[] args) throws Exception {
 
         try {
-            Menu.menuPrincipal(Menu.muestraMenu());
+            Menu menu = new Menu();
             Conexion con = new Conexion();
             con.getConexion();
         } catch (Exception ex) {
