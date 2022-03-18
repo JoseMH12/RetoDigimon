@@ -41,15 +41,19 @@ public class Menu {
         switch (opcion) {
             case 1:
                 System.out.println("\nHas elegido la opción jugar");
+                muestraMenu();
                 break;
             case 2:
                 System.out.println("\nHas elegido la opción equipo");
+                muestraMenu();
                 break;
             case 3:
                 System.out.println("\nHas elegido la opción mis digimons");
+                muestraMenu();
                 break;
             case 4:
                 System.out.println("\nSaliendo...");
+                muestraMenu();
                 break;
             default: 
                 System.out.println("Opción no válida, introduce una opción entre 1 y 4 ...\n\n"); 
@@ -80,27 +84,35 @@ public class Menu {
                 Jugador j1 = new Jugador();
 
                 System.out.println(j1.getNick() + " - " + j1.getContrasenya());
+                muestraMenu();
                 break;
             case 2:
                 System.out.println("\nHas elegido eliminar un nuevo jugador");
+                muestraMenu();
                 break;
             case 3:
                 System.out.println("\nHas elegido modificar un nuevo jugador");
+                muestraMenu();
                 break;
             case 4:
                 System.out.println("\nHas elegido crear un nuevo digimon");
+                muestraMenu();
                 break;
             case 5:
                 System.out.println("\nHas elegido eliminar un nuevo digimon");
+                muestraMenu();
                 break;
             case 6:
                 System.out.println("\nHas elegido modificar un nuevo digimon");
+                muestraMenu();
                 break;
             case 7:
                 System.out.println("\nHas elegido restablecer los datos del programa");
+                muestraMenu();
                 break;
             case 8:
                 System.out.println("\nSaliendo del programa...");
+                muestraMenu();
                 break;
             default: 
                 System.out.println("Opción no válida, introduce una opción entre 1 y 8...\n\n"); 
