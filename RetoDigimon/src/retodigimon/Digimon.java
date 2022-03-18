@@ -1,5 +1,7 @@
 package retodigimon;
 
+import Sleer1.SLeer1;
+
 public class Digimon {
     //ATRIBUTOS DE LA CLASE
     private String nombreDig = "";
@@ -13,12 +15,12 @@ public class Digimon {
     //CONSTRUCTOR VACIO
     //Digimon d1 = new Digimon();
     public Digimon() {
-        nombreDig = "";
-        ataque = 0;
-        defensa = 0;
-        tipo = Tipo.NULO;
-        nivel = 1;
-        nombreDigEvo = "";
+        this.nombreDig = SLeer1.datoString("Nombre del digimon: ");
+        this.ataque = SLeer1.datoInt("Ataque del digimon: ");
+        this.defensa = SLeer1.datoInt("Defensa del digimon: ");
+        this.tipo = Tipo.NULO;
+        this.nivel = SLeer1.datoInt("Nivel del digimon: ");
+        this.nombreDigEvo = SLeer1.datoString("Nombre de la evolución: ");
     }
 
     //CONSTRUCTOR CON SOLO NOMBRE
