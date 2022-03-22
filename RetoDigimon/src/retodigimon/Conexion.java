@@ -28,16 +28,19 @@ public class Conexion {
         return con;
     }
     
-    public static void crearJugador(){
+    public static void crearJugador() throws Exception{
         Jugador j1 = new Jugador();
         String nomJug = SLeer1.datoString("Introduce el nombre de usuario: ");
         j1.setNick(nomJug);
         String conJug = SLeer1.datoString("Introduce la contrseña del usuario: ");
         j1.setContrasenya(conJug);
         
-        getConexion();
-        String consulta = "SELECT * FROM jugadores WHERE nombre=?";
-        PrepareStatement si = prepareStatement(consulta);
-        
+        Connection con = getConexion();
+        String consulta = "INSERT INTO jugador (nick, contraseña) VALUES (?,?)";
+        PreparedStatement ps = con.prepareStatement(consulta);
+        ps.setString(1, j1.getNick());
+        ps.setString(2, j1.getContrasenya());
+        ps.executeUpdate();
+        System.out.println("Se ha agregado el jugador " + nomJug + " a la base de datos\n\n");
     }
 }

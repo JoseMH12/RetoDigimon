@@ -4,7 +4,7 @@ import Sleer1.SLeer1;
 
 public class Menu {
 
-    public Menu(){
+    public Menu()throws Exception{
         int opcion = muestraMenu();
         menuPrincipal(opcion);
     }
@@ -76,24 +76,21 @@ public class Menu {
         return opcion;
     }
 
-    public static void menuPrincipal(int opcion) {
+    public static void menuPrincipal(int opcion) throws Exception{
         SLeer1.limpiar();
         switch (opcion) {
             case 1:
                 System.out.println("\nHas elegido crear un nuevo jugador");
                 Conexion.crearJugador();
-
-                System.out.println("Nombre: "+j1.getNick() + " - " + "Contraseña: " + j1.getContrasenya());
-
-                muestraMenu();
+                menuPrincipal(muestraMenu());
                 break;
             case 2:
                 System.out.println("\nHas elegido eliminar un nuevo jugador");
-                muestraMenu();
+                menuPrincipal(muestraMenu());
                 break;
             case 3:
                 System.out.println("\nHas elegido modificar un nuevo jugador");
-                muestraMenu();
+                menuPrincipal(muestraMenu());
                 break;
             case 4:
                 System.out.println("\nHas elegido crear un nuevo digimon");
@@ -103,23 +100,22 @@ public class Menu {
                 System.out.println("Nombre: " +d1.getNombreDig()+ "\nAtaque: " +d1.getAtaque()+ "\nDefensa: " +d1.getDefensa()+ "\nTipo: " +d1.getTipo()+ "\nNivel: " +d1.getNivel()+"\nDigievolucion: " +d1.getNombreDigEvo());
                 //El nombre de la evolucion no se muestra, comprobar.
                 
-                muestraMenu();
+                menuPrincipal(muestraMenu());
                 break;
             case 5:
                 System.out.println("\nHas elegido eliminar un nuevo digimon");
-                muestraMenu();
+                menuPrincipal(muestraMenu());
                 break;
             case 6:
                 System.out.println("\nHas elegido modificar un nuevo digimon");
-                muestraMenu();
+                menuPrincipal(muestraMenu());
                 break;
             case 7:
                 System.out.println("\nHas elegido restablecer los datos del programa");
-                muestraMenu();
+                menuPrincipal(muestraMenu());
                 break;
             case 8:
                 System.out.println("\nSaliendo del programa...");
-                muestraMenu();
                 break;
             default: 
                 System.out.println("Opción no válida, introduce una opción entre 1 y 8...\n\n"); 
