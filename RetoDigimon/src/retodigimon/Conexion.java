@@ -4,6 +4,7 @@
  */
 package retodigimon;
 
+import Sleer1.SLeer1;
 import java.sql.*;
 
 /**
@@ -14,28 +15,29 @@ public class Conexion {
 
     public static final String URL = "jdbc:mysql://localhost:3306/digimon";
     public static final String USER = "root";
-    public static final String CLAVE = "culoculo";
+    public static final String CLAVE = "123";
 
-    public Connection getConexion() throws Exception {
+    public static Connection getConexion() {
         Connection con = null;
         try {
-            Connection connection = DriverManager.getConnection(URL, USER, CLAVE);
-
-            //Statement statement = connection.createStatement();
-           // ResultSet rs = statement.executeQuery("SELECT * FROM digimon");
-
-            //while (rs.next()) {
-
-              //  String nombre = rs.getString("nomDig");
-
-                //System.out.println(nombre);
-            //}
-            //rs.close();
-            //statement.close();
-            //connection.close();
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            con = (Connection) DriverManager.getConnection(URL, USER, CLAVE);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
         return con;
+    }
+    
+    public static void crearJugador(){
+        Jugador j1 = new Jugador();
+        String nomJug = SLeer1.datoString("Introduce el nombre de usuario: ");
+        j1.setNick(nomJug);
+        String conJug = SLeer1.datoString("Introduce la contrseña del usuario: ");
+        j1.setContrasenya(conJug);
+        
+        getConexion();
+        String consulta = "SELECT * FROM jugadores WHERE nombre=?";
+        PrepareStatement si = prepareStatement(consulta);
+        
     }
 }

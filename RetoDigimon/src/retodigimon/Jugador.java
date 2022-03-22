@@ -13,10 +13,7 @@ public class Jugador {
     //CONSTRUCTOR VACIO
     //Jugador j1 = new Jugador();
     public Jugador() {
-        this.nick = SLeer1.datoString("Nombre del jugador: ");
-        this.contrasenya = SLeer1.datoString("Contraseña del jugador: ");
-        partidas_ganadas = 0;
-        partidas_jugadas = 0;
+
     }
 
     public String getNick() {
