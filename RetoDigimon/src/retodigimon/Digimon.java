@@ -23,28 +23,6 @@ public class Digimon {
         this.nombreDigEvo = SLeer1.datoString("Nombre de la evolución: ");
     }
 
-    //CONSTRUCTOR CON SOLO NOMBRE
-    //Digimon d2 = new Digimon("Pepe");
-    public Digimon(String nombreDig) {
-        this.nombreDig = nombreDig;
-        ataque = 0;
-        defensa = 0;
-        tipo = Tipo.NULO;
-        nivel = 1;
-        nombreDigEvo = "";
-    }
-
-    //CONSTRUCTOR CON NOMBRE Y TIPO
-    //Digimon d3 = new Digimon("Pepe",Tipo.PLANTA);
-    public Digimon(String nombreDig, Tipo tipo) {
-        this.nombreDig = nombreDig;
-        ataque = 0;
-        defensa = 0;
-        this.tipo= tipo;
-        nivel = 1;
-        nombreDigEvo = "";
-    }
-
     public String getNombreDig() {
         return nombreDig;
     }

@@ -17,7 +17,8 @@ public class Menu {
     }*/
     
     /*public static void comprobacionUser(String login){
-        if("usuario_admin"){
+        
+        if(login.equals(Conexion.CLAVE)){
         muestraMenuAd();
         }else if("usuario existe"){
             muestraMenuUs();
@@ -80,8 +81,7 @@ public class Menu {
         switch (opcion) {
             case 1:
                 System.out.println("\nHas elegido crear un nuevo jugador");
-
-                Jugador j1 = new Jugador();
+                Conexion.crearJugador();
 
                 System.out.println("Nombre: "+j1.getNick() + " - " + "Contraseña: " + j1.getContrasenya());
 
