@@ -15,7 +15,7 @@ public class Conexion {
 
     public static final String URL = "jdbc:mysql://localhost:3306/digimon";
     public static final String USER = "root";
-    public static final String CLAVE = "a";
+    public static final String CLAVE = "123";
 
     public static Connection getConexion() {
         Connection con = null;
