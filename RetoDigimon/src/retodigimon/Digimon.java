@@ -15,12 +15,7 @@ public class Digimon {
     //CONSTRUCTOR VACIO
     //Digimon d1 = new Digimon();
     public Digimon() {
-        this.nombreDig = SLeer1.datoString("Nombre del digimon: ");
-        this.ataque = SLeer1.datoInt("Ataque del digimon: ");
-        this.defensa = SLeer1.datoInt("Defensa del digimon: ");
-        this.tipo = Tipo.NULO;
-        this.nivel = SLeer1.datoInt("Nivel del digimon: ");
-        this.nombreDigEvo = SLeer1.datoString("Nombre de la evolución: ");
+       
     }
 
     public String getNombreDig() {

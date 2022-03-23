@@ -94,10 +94,9 @@ public class Menu {
                 break;
             case 4:
                 System.out.println("\nHas elegido crear un nuevo digimon");
-                
-                Digimon d1 = new Digimon();
-                SLeer1.limpiar();
-                System.out.println("Nombre: " +d1.getNombreDig()+ "\nAtaque: " +d1.getAtaque()+ "\nDefensa: " +d1.getDefensa()+ "\nTipo: " +d1.getTipo()+ "\nNivel: " +d1.getNivel()+"\nDigievolucion: " +d1.getNombreDigEvo());
+                Conexion.crearDigimon();
+                menuPrincipal(muestraMenu());
+             
                 //El nombre de la evolucion no se muestra, comprobar.
                 
                 menuPrincipal(muestraMenu());
