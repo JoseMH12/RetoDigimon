@@ -94,12 +94,14 @@ public class Menu {
                 break;
             case 4:
                 System.out.println("\nHas elegido crear un nuevo digimon");
-                Conexion.crearDigimon();
-                menuPrincipal(muestraMenu());
-             
-                //El nombre de la evolucion no se muestra, comprobar.
-                
-                menuPrincipal(muestraMenu());
+                try{
+                    Conexion.crearDigimon();
+                    menuPrincipal(muestraMenu());
+                }catch (Exception ex){
+                    System.err.println("Error: " + ex.getMessage());
+                    System.out.println("\n");
+                    menuPrincipal(muestraMenu());
+                }
                 break;
             case 5:
                 System.out.println("\nHas elegido eliminar un nuevo digimon");
