@@ -76,23 +76,18 @@ public class Conexion {
             } else {
                 System.out.println("El jugador " + nombreEliminar + " no existe.");
             }
-
         }
     }
 
     public static void modificarJugador() throws Exception {
         boolean salir = false;
         while (salir != true) {
-
             String nomJug = SLeer1.datoString("Introduce el nombre del jugador a modificar: ");
-
             Connection con = getConexion();
-
             if (existeJugador(nomJug) == true) {
                 int menuMod = 0;
                 do {
                     menuMod = SLeer1.datoInt("\n\nElige el campo a modificar: \n\t1 - Nick\n\t2 - Contraseña\nOpcion: ");
-
                     if (menuMod < 1 && menuMod > 2) {
                         System.err.println("Error, opcion no valida");
                     }
@@ -107,7 +102,6 @@ public class Conexion {
                         System.out.println("Nombre del jugador modificado correctamente\n\n");
                         salir = true;
                         break;
-
                     case 2:
                         String nuevaPassword = SLeer1.datoString("Introduce la nueva contraseña: ");
                         String update2 = "UPDATE jugador SET contraseña = '" + nuevaPassword + "' WHERE nick = '" + nomJug + "';";
@@ -116,28 +110,22 @@ public class Conexion {
                         System.out.println("Contraseña modificada correctamente\n\n");
                         salir = true;
                         break;
-
                 }
-
             } else {
                 System.err.println("El jugador " + nomJug + " no existe");
             }
-
         }
     }
 
     public static boolean existeDigimon(String nombre) {
         try {
-
             Connection con = getConexion();
             String consulta = ("SELECT nomDig FROM digimon WHERE nomDig = '" + nombre + "';");
             PreparedStatement ps = con.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
-
             if (rs.next()) {
                 return true;
             }
-
         } catch (Exception ex) {
             System.err.println(ex.getMessage());
         }
@@ -145,7 +133,6 @@ public class Conexion {
     }
 
     public static void crearDigimon() throws Exception {
-
         Digimon d1 = new Digimon();
         System.out.println(d1.getTipo());
 
@@ -205,7 +192,6 @@ public class Conexion {
         ps.setString(6, d1.getNombreDigEvo());
         ps.executeUpdate();
         System.out.println("Se ha agregado el digimon " + nomDig + " a la base de datos\n\n");
-
     }
 
     public static void eliminarDigimon() throws Exception {
@@ -222,23 +208,18 @@ public class Conexion {
             } else {
                 System.out.println("El digimon " + digiEliminar + " no existe");
             }
-
         }
     }
 
     public static void modificarDigimon() throws Exception {
         boolean salir = false;
         while (salir != true) {
-
             String nomDig = SLeer1.datoString("Introduce el nombre del digimon a modificar: ");
-
             Connection con = getConexion();
-            
             if (existeDigimon(nomDig) == true) {
                 int menuMod = 0;
                 do {
                     menuMod = SLeer1.datoInt("\n\nElige el campo a modificar: \n\t1 - Nombre\n\t2 - Ataque\n\t3 - Defensa\n\t4 - Tipo\n\t5 - Nivel\n\t6 - Nombre Evolución\nOpcion: ");
-
                     if (menuMod < 1 && menuMod > 6) {
                         System.err.println("Error, opcion no valida");
                     }
@@ -253,7 +234,6 @@ public class Conexion {
                         System.out.println("Nombre del digimon modificado correctamente\n\n");
                         salir = true;
                         break;
-
                     case 2:
                         String nuevoAtaque = SLeer1.datoString("Introduce el nuevo ataque del digimon : ");
                         String update2 = "UPDATE digimon SET ataque = '" + nuevoAtaque + "' WHERE nomDig = '" + nomDig + "';";
@@ -262,7 +242,6 @@ public class Conexion {
                         System.out.println("Ataque modificado correctamente\n\n");
                         salir = true;
                         break;
-
                     case 3:
                         String nuevaDefensa = SLeer1.datoString("Introduce la nueva defensa del digimon : ");
                         String update3 = "UPDATE digimon SET defensa = '" + nuevaDefensa + "' WHERE nomDig = '" + nomDig + "';";
@@ -271,31 +250,43 @@ public class Conexion {
                         System.out.println("Defensa modificada correctamente\n\n");
                         salir = true;
                         break;
-
                     case 4:
-                        Tipo t= null;
+                        Tipo t = null;
                         boolean bandera = false;
                         do {
-                            //String nuevoTipo = SLeer1.datoString("Introduce el nuevo tipo del digimon (NULO,VACUNA,VIRUS,ANIMAL,PLANTA,ELEMENTAL): ").toUpperCase();
-
                             int menuMod2 = 0;
-                            
                             do {
                                 menuMod2 = SLeer1.datoInt("\n\nElige el tipo: \n\t1 - NULO\n\t2 - VACUNA\n\t3 - VIRUS\n\t4 - ANIMAL\n\t5 - PLANTA\n\t6 - ELEMENTAL\nOpcion: ");
-
                                 if (menuMod2 < 1 && menuMod2 > 6) {
                                     System.err.println("Error, opcion no valida");
                                 }
                             } while (menuMod2 < 1 || menuMod2 > 6);
-                            
-                            switch (menuMod2){
-                                case 1 : t= Tipo.NULO;bandera = true; break;
-                                case 2 : t= Tipo.VACUNA;bandera = true; break;
-                                case 3 : t= Tipo.VIRUS;bandera = true; break;
-                                case 4 : t= Tipo.ANIMAL;bandera = true; break;
-                                case 5 : t= Tipo.PLANTA;bandera = true; break;
-                                case 6 : t= Tipo.ELEMENTAL;bandera = true; break;
-                                
+
+                            switch (menuMod2) {
+                                case 1:
+                                    t = Tipo.NULO;
+                                    bandera = true;
+                                    break;
+                                case 2:
+                                    t = Tipo.VACUNA;
+                                    bandera = true;
+                                    break;
+                                case 3:
+                                    t = Tipo.VIRUS;
+                                    bandera = true;
+                                    break;
+                                case 4:
+                                    t = Tipo.ANIMAL;
+                                    bandera = true;
+                                    break;
+                                case 5:
+                                    t = Tipo.PLANTA;
+                                    bandera = true;
+                                    break;
+                                case 6:
+                                    t = Tipo.ELEMENTAL;
+                                    bandera = true;
+                                    break;
                             }
 
                         } while (bandera != true);
@@ -305,9 +296,7 @@ public class Conexion {
                         System.out.println("Tipo modificado correctamente\n\n");
                         salir = true;
                         break;
-                         
-                        
-                         case 5:
+                    case 5:
                         String nuevoNivel = SLeer1.datoString("Introduce el nuevo nivel del digimon : ");
                         String update5 = "UPDATE digimon SET nivel = '" + nuevoNivel + "' WHERE nomDig = '" + nomDig + "';";
                         PreparedStatement psUpdate5 = con.prepareStatement(update5);
@@ -315,8 +304,7 @@ public class Conexion {
                         System.out.println("Nivel modificado correctamente\n\n");
                         salir = true;
                         break;
-                        
-                         case 6:
+                    case 6:
                         String nuevaEvolucion = SLeer1.datoString("Introduce la nueva evolucion del digimon : ");
                         String update6 = "UPDATE digimon SET nomDigiEv  = '" + nuevaEvolucion + "' WHERE nomDig = '" + nomDig + "';";
                         PreparedStatement psUpdate6 = con.prepareStatement(update6);
@@ -325,13 +313,9 @@ public class Conexion {
                         salir = true;
                         break;
                 }
-
             } else {
                 System.err.println("El digimon " + nomDig + " no existe");
             }
-            
-            
-
         }
     }
 }
