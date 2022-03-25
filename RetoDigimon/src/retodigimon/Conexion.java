@@ -15,7 +15,7 @@ public class Conexion {
 
     public static final String URL = "jdbc:mysql://localhost:3306/digimon";
     public static final String USER = "root";
-    public static final String CLAVE = "123";
+    public static final String CLAVE = "a";
 
     public static Connection getConexion() {
         Connection con = null;
@@ -226,4 +226,112 @@ public class Conexion {
         }
     }
 
+    public static void modificarDigimon() throws Exception {
+        boolean salir = false;
+        while (salir != true) {
+
+            String nomDig = SLeer1.datoString("Introduce el nombre del digimon a modificar: ");
+
+            Connection con = getConexion();
+            
+            if (existeDigimon(nomDig) == true) {
+                int menuMod = 0;
+                do {
+                    menuMod = SLeer1.datoInt("\n\nElige el campo a modificar: \n\t1 - Nombre\n\t2 - Ataque\n\t3 - Defensa\n\t4 - Tipo\n\t5 - Nivel\n\t6 - Nombre Evolución\nOpcion: ");
+
+                    if (menuMod < 1 && menuMod > 6) {
+                        System.err.println("Error, opcion no valida");
+                    }
+                } while (menuMod < 1 || menuMod > 6);
+                SLeer1.limpiar();
+                switch (menuMod) {
+                    case 1:
+                        String nuevoNombreD = SLeer1.datoString("Introduce el nuevo nombre: ");
+                        String update = "UPDATE digimon SET nomDig = '" + nuevoNombreD + "' WHERE nomDig = '" + nomDig + "';";
+                        PreparedStatement psUpdate = con.prepareStatement(update);
+                        psUpdate.executeUpdate();
+                        System.out.println("Nombre del digimon modificado correctamente\n\n");
+                        salir = true;
+                        break;
+
+                    case 2:
+                        String nuevoAtaque = SLeer1.datoString("Introduce el nuevo ataque del digimon : ");
+                        String update2 = "UPDATE digimon SET ataque = '" + nuevoAtaque + "' WHERE nomDig = '" + nomDig + "';";
+                        PreparedStatement psUpdate2 = con.prepareStatement(update2);
+                        psUpdate2.executeUpdate();
+                        System.out.println("Ataque modificado correctamente\n\n");
+                        salir = true;
+                        break;
+
+                    case 3:
+                        String nuevaDefensa = SLeer1.datoString("Introduce la nueva defensa del digimon : ");
+                        String update3 = "UPDATE digimon SET defensa = '" + nuevaDefensa + "' WHERE nomDig = '" + nomDig + "';";
+                        PreparedStatement psUpdate3 = con.prepareStatement(update3);
+                        psUpdate3.executeUpdate();
+                        System.out.println("Defensa modificada correctamente\n\n");
+                        salir = true;
+                        break;
+
+                    case 4:
+                        Tipo t= null;
+                        boolean bandera = false;
+                        do {
+                            //String nuevoTipo = SLeer1.datoString("Introduce el nuevo tipo del digimon (NULO,VACUNA,VIRUS,ANIMAL,PLANTA,ELEMENTAL): ").toUpperCase();
+
+                            int menuMod2 = 0;
+                            
+                            do {
+                                menuMod2 = SLeer1.datoInt("\n\nElige el tipo: \n\t1 - NULO\n\t2 - VACUNA\n\t3 - VIRUS\n\t4 - ANIMAL\n\t5 - PLANTA\n\t6 - ELEMENTAL\nOpcion: ");
+
+                                if (menuMod2 < 1 && menuMod2 > 6) {
+                                    System.err.println("Error, opcion no valida");
+                                }
+                            } while (menuMod2 < 1 || menuMod2 > 6);
+                            
+                            switch (menuMod2){
+                                case 1 : t= Tipo.NULO;bandera = true; break;
+                                case 2 : t= Tipo.VACUNA;bandera = true; break;
+                                case 3 : t= Tipo.VIRUS;bandera = true; break;
+                                case 4 : t= Tipo.ANIMAL;bandera = true; break;
+                                case 5 : t= Tipo.PLANTA;bandera = true; break;
+                                case 6 : t= Tipo.ELEMENTAL;bandera = true; break;
+                                
+                            }
+
+                        } while (bandera != true);
+                        String update4 = "UPDATE digimon SET tipo = '" + t.name() + "' WHERE nomDig = '" + nomDig + "';";
+                        PreparedStatement psUpdate4 = con.prepareStatement(update4);
+                        psUpdate4.executeUpdate();
+                        System.out.println("Tipo modificado correctamente\n\n");
+                        salir = true;
+                        break;
+                         
+                        
+                         case 5:
+                        String nuevoNivel = SLeer1.datoString("Introduce el nuevo nivel del digimon : ");
+                        String update5 = "UPDATE digimon SET nivel = '" + nuevoNivel + "' WHERE nomDig = '" + nomDig + "';";
+                        PreparedStatement psUpdate5 = con.prepareStatement(update5);
+                        psUpdate5.executeUpdate();
+                        System.out.println("Nivel modificado correctamente\n\n");
+                        salir = true;
+                        break;
+                        
+                         case 6:
+                        String nuevaEvolucion = SLeer1.datoString("Introduce la nueva evolucion del digimon : ");
+                        String update6 = "UPDATE digimon SET nomDigiEv  = '" + nuevaEvolucion + "' WHERE nomDig = '" + nomDig + "';";
+                        PreparedStatement psUpdate6 = con.prepareStatement(update6);
+                        psUpdate6.executeUpdate();
+                        System.out.println("Evolución modificada correctamente\n\n");
+                        salir = true;
+                        break;
+                }
+
+            } else {
+                System.err.println("El digimon " + nomDig + " no existe");
+            }
+            
+            
+
+        }
+    }
 }

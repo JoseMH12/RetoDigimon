@@ -116,7 +116,14 @@ public class Menu {
                 break;
             case 6:
                 System.out.println("\nHas elegido modificar un nuevo digimon");
-                menuPrincipal(muestraMenu());
+                try{
+                    Conexion.modificarDigimon();
+                    menuPrincipal(muestraMenu());
+                }catch (Exception ex){
+                    System.err.println("Error: " + ex.getMessage());
+                    System.out.println("\n");
+                    menuPrincipal(muestraMenu());
+                }
                 break;
             case 7:
                 System.out.println("\nHas elegido restablecer los datos del programa");
