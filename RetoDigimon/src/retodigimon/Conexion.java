@@ -107,4 +107,39 @@ public class Conexion {
         System.out.println("Se ha agregado el digimon " + nomDig + " a la base de datos\n\n");
 
     }
+    public static boolean existeDigimon(String nombre) {
+        try {
+
+            Connection con = getConexion();
+            String consulta = ("SELECT nomDig FROM digimon WHERE nomDig = '" + nombre + "';");
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+    
+    public static void eliminarDigimon() throws Exception {
+        boolean salir=false;
+            while (salir != true){
+                String digiEliminar = SLeer1.datoString("Nombre del digimon a eliminar: ");
+                Connection con = getConexion();
+                if(existeDigimon(digiEliminar)==true){
+                   String eliminarDig = "DELETE FROM digimon WHERE nomDig='" + digiEliminar + "';";
+                   PreparedStatement psEliminar = con.prepareStatement(eliminarDig);
+                   psEliminar.executeUpdate();
+                    System.out.println("Digimon eliminado correctamente\n\n");
+                    salir=true;
+                }else{
+                    System.out.println("El digimon "+ digiEliminar+ " no existe");
+                }
+                
+            }
+    }
 }

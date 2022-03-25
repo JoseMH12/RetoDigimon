@@ -105,7 +105,14 @@ public class Menu {
                 break;
             case 5:
                 System.out.println("\nHas elegido eliminar un nuevo digimon");
-                menuPrincipal(muestraMenu());
+                try{
+                    Conexion.eliminarDigimon();
+                    menuPrincipal(muestraMenu());
+                }catch (Exception ex){
+                    System.err.println("Error: " + ex.getMessage());
+                    System.out.println("\n");
+                    menuPrincipal(muestraMenu());
+                }
                 break;
             case 6:
                 System.out.println("\nHas elegido modificar un nuevo digimon");
