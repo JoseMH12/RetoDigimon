@@ -28,6 +28,24 @@ public class Conexion {
         return con;
     }
 
+    public static boolean existeJugador(String nombre) {
+        try {
+
+            Connection con = getConexion();
+            String consulta = ("SELECT nick FROM jugador WHERE nick = '" + nombre + "';");
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
     public static void crearJugador() throws Exception {
         Jugador j1 = new Jugador();
         String nomJug = SLeer1.datoString("Introduce el nombre de usuario: ");
@@ -44,6 +62,88 @@ public class Conexion {
         System.out.println("Se ha agregado el jugador " + nomJug + " a la base de datos\n\n");
     }
 
+    public static void eliminarJugador() throws Exception {
+        boolean salir = false;
+        while (salir != true) {
+            String nombreEliminar = SLeer1.datoString("Nombre del jugador a eliminar: ");
+            Connection con = getConexion();
+            if (existeJugador(nombreEliminar) == true) {
+                String eliminarJug = "DELETE FROM jugador WHERE nick='" + nombreEliminar + "'";
+                PreparedStatement psEliminar = con.prepareStatement(eliminarJug);
+                psEliminar.executeUpdate();
+                System.out.println("Jugador eliminado correctamente\n\n");
+                salir = true;
+            } else {
+                System.out.println("El jugador " + nombreEliminar + " no existe.");
+            }
+
+        }
+    }
+
+    public static void modificarJugador() throws Exception {
+        boolean salir = false;
+        while (salir != true) {
+
+            String nomJug = SLeer1.datoString("Introduce el nombre del jugador a modificar: ");
+
+            Connection con = getConexion();
+
+            if (existeJugador(nomJug) == true) {
+                int menuMod = 0;
+                do {
+                    menuMod = SLeer1.datoInt("\n\nElige el campo a modificar: \n\t1 - Nick\n\t2 - Contraseña\nOpcion: ");
+
+                    if (menuMod < 1 && menuMod > 2) {
+                        System.err.println("Error, opcion no valida");
+                    }
+                } while (menuMod < 1 || menuMod > 2);
+                SLeer1.limpiar();
+                switch (menuMod) {
+                    case 1:
+                        String nuevoNombre = SLeer1.datoString("Introduce el nuevo nombre: ");
+                        String update = "UPDATE jugador SET nick = '" + nuevoNombre + "' WHERE nick = '" + nomJug + "';";
+                        PreparedStatement psUpdate = con.prepareStatement(update);
+                        psUpdate.executeUpdate();
+                        System.out.println("Nombre del jugador modificado correctamente\n\n");
+                        salir = true;
+                        break;
+
+                    case 2:
+                        String nuevaPassword = SLeer1.datoString("Introduce la nueva contraseña: ");
+                        String update2 = "UPDATE jugador SET contraseña = '" + nuevaPassword + "' WHERE nick = '" + nomJug + "';";
+                        PreparedStatement psUpdate2 = con.prepareStatement(update2);
+                        psUpdate2.executeUpdate();
+                        System.out.println("Contraseña modificada correctamente\n\n");
+                        salir = true;
+                        break;
+
+                }
+
+            } else {
+                System.err.println("El jugador " + nomJug + " no existe");
+            }
+
+        }
+    }
+
+    public static boolean existeDigimon(String nombre) {
+        try {
+
+            Connection con = getConexion();
+            String consulta = ("SELECT nomDig FROM digimon WHERE nomDig = '" + nombre + "';");
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                return true;
+            }
+
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
     public static void crearDigimon() throws Exception {
 
         Digimon d1 = new Digimon();
@@ -58,7 +158,7 @@ public class Conexion {
         int defDig = SLeer1.datoInt("Introduce la defensa del digimon: ");
         d1.setDefensa(defDig);
         SLeer1.limpiar();
-        
+
         boolean bandera = false;
         do {
             String t = SLeer1.datoString("Introduce el tipo (NULO,VACUNA,VIRUS,ANIMAL,PLANTA,ELEMENTAL): ").toUpperCase();
@@ -86,14 +186,14 @@ public class Conexion {
             }
 
         } while (bandera != true);
-        
+
         int nvlDig = SLeer1.datoInt("Introduce el nivel del Digimon: ");
         d1.setNivel(nvlDig);
         SLeer1.limpiar();
-        
+
         String evoDigEvo = SLeer1.datoString("Introduce el nombre de la digievolucion: ");
         d1.setNombreDigEvo(evoDigEvo);
-        
+
         Connection con = getConexion();
         String insertdos = "INSERT INTO digimon (nomDig, ataque, defensa, tipo, nivel, nomDigiEv) VALUES (?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insertdos);
@@ -107,39 +207,23 @@ public class Conexion {
         System.out.println("Se ha agregado el digimon " + nomDig + " a la base de datos\n\n");
 
     }
-    public static boolean existeDigimon(String nombre) {
-        try {
 
-            Connection con = getConexion();
-            String consulta = ("SELECT nomDig FROM digimon WHERE nomDig = '" + nombre + "';");
-            PreparedStatement ps = con.prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.next()) {
-                return true;
-            }
-
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
-        }
-        return false;
-    }
-    
     public static void eliminarDigimon() throws Exception {
-        boolean salir=false;
-            while (salir != true){
-                String digiEliminar = SLeer1.datoString("Nombre del digimon a eliminar: ");
-                Connection con = getConexion();
-                if(existeDigimon(digiEliminar)==true){
-                   String eliminarDig = "DELETE FROM digimon WHERE nomDig='" + digiEliminar + "';";
-                   PreparedStatement psEliminar = con.prepareStatement(eliminarDig);
-                   psEliminar.executeUpdate();
-                    System.out.println("Digimon eliminado correctamente\n\n");
-                    salir=true;
-                }else{
-                    System.out.println("El digimon "+ digiEliminar+ " no existe");
-                }
-                
+        boolean salir = false;
+        while (salir != true) {
+            String digiEliminar = SLeer1.datoString("Nombre del digimon a eliminar: ");
+            Connection con = getConexion();
+            if (existeDigimon(digiEliminar) == true) {
+                String eliminarDig = "DELETE FROM digimon WHERE nomDig='" + digiEliminar + "';";
+                PreparedStatement psEliminar = con.prepareStatement(eliminarDig);
+                psEliminar.executeUpdate();
+                System.out.println("Digimon eliminado correctamente\n\n");
+                salir = true;
+            } else {
+                System.out.println("El digimon " + digiEliminar + " no existe");
             }
+
+        }
     }
+
 }
