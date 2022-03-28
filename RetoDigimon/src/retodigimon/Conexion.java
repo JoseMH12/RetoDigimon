@@ -15,7 +15,7 @@ public class Conexion {
 
     public static final String URL = "jdbc:mysql://localhost:3306/digimon";
     public static final String USER = "root";
-    public static final String CLAVE = "culoculo";
+    public static final String CLAVE = "123";
 
     public static Connection getConexion() {
         Connection con = null;
@@ -145,7 +145,6 @@ public class Conexion {
 
     public static void crearDigimon() throws Exception {
         Digimon d1 = new Digimon();
-        System.out.println(d1.getTipo());
 
         String nomDig = SLeer1.datoString("Introduce el nombre del digimon: ");
         d1.setNombreDig(nomDig);

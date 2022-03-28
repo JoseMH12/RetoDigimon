@@ -17,8 +17,6 @@ public class RetoDigimon {
 
         try {
             Menu menu = new Menu();
-            Conexion con = new Conexion();
-            con.getConexion();
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
