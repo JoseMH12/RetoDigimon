@@ -19,8 +19,7 @@ CREATE TABLE digimon (
     imagen_g varchar(50),
     imagen_p varchar(50),
     nivel int not null,
-    nomDigiEv varchar (30),
-    ADD CONSTRAINT fk_tiene_digimon FOREIGN KEY (nomDig) REFERENCES digimon(nomDig) ON DELETE NO ACTION ON UPDATE CASCADE
+    nomDigiEv varchar (30)
 );
 
 CREATE TABLE tiene (
@@ -30,7 +29,7 @@ CREATE TABLE tiene (
     PRIMARY KEY (nick, nomDig)
 );
 
+ALTER TABLE tiene
 
-
-
-
+ADD CONSTRAINT fk_tiene_jug FOREIGN KEY (nick) REFERENCES jugador (nick) ON DELETE NO ACTION ON UPDATE CASCADE,
+ADD CONSTRAINT fk_tiene_digimon FOREIGN KEY (nomDig) REFERENCES digimon(nomDig) ON DELETE NO ACTION ON UPDATE CASCADE;
