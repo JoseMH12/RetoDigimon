@@ -151,7 +151,7 @@ public class Menu {
                 }
                 break;
             case 7:
-                System.out.println("\nHas elegido restablecer los datos del programa");
+                System.out.println("\nHas elegido restablecer los datos del programa\n");
                 try{
                     Conexion.restablecerPrograma();
                     menuPrincipal(muestraMenu());
