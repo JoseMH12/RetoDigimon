@@ -15,7 +15,7 @@ public class Conexion {
 
     public static final String URL = "jdbc:mysql://localhost:3306/digimon";
     public static final String USER = "root";
-    public static final String CLAVE = "a";
+    public static final String CLAVE = "123";
 
     public static Connection getConexion() {
         Connection con = null;
@@ -317,5 +317,21 @@ public class Conexion {
                 System.err.println("El digimon " + nomDig + " no existe");
             }
         }
+    }
+
+    public static void restablecerPrograma() throws Exception {
+        System.out.println("Borrando jugadores...");
+        Connection con = getConexion();
+        String restablecerJug = "DELETE FROM jugador;";
+        PreparedStatement psRestablecerJug = con.prepareStatement(restablecerJug);
+        psRestablecerJug.executeUpdate();
+        System.out.println("Jugadores eliminados correctamente\n\n");
+
+        System.out.println("Borrando digimones...");
+        Connection con2 = getConexion();
+        String restablecerDig = "DELETE FROM digimon;";
+        PreparedStatement psRestablecerDig = con2.prepareStatement(restablecerDig);
+        psRestablecerDig.executeUpdate();
+        System.out.println("Digimones eliminados correctamente\n\n");
     }
 }

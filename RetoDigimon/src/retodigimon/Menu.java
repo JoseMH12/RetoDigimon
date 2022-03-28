@@ -127,7 +127,14 @@ public class Menu {
                 break;
             case 7:
                 System.out.println("\nHas elegido restablecer los datos del programa");
-                menuPrincipal(muestraMenu());
+                try{
+                    Conexion.restablecerPrograma();
+                    menuPrincipal(muestraMenu());
+                }catch (Exception ex){
+                    System.err.println("Error: " + ex.getMessage());
+                    System.out.println("\n");
+                    menuPrincipal(muestraMenu());
+                }
                 break;
             case 8:
                 System.out.println("\nSaliendo del programa...");
