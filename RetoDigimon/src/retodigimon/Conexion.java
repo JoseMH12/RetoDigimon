@@ -15,7 +15,7 @@ public class Conexion {
 
     public static final String URL = "jdbc:mysql://localhost:3306/digimon";
     public static final String USER = "root";
-    public static final String CLAVE = "123";
+    public static final String CLAVE = "a";
 
     public static Connection getConexion() {
         Connection con = null;
@@ -52,13 +52,12 @@ public class Conexion {
         while (salir != true) {
             String nomJug = SLeer1.datoString("Introduce el nombre de usuario: ");
             j1.setNick(nomJug);
-            
 
             Connection con = getConexion();
             if (existeJugador(nomJug) == false) {
                 String conJug = SLeer1.datoString("Introduce la contraseña del usuario: ");
                 j1.setContrasenya(conJug);
-                
+
                 String insert = "INSERT INTO jugador (nick, contraseña) VALUES (?,?)";
                 PreparedStatement ps = con.prepareStatement(insert);
                 ps.setString(1, j1.getNick());
@@ -106,13 +105,26 @@ public class Conexion {
                 SLeer1.limpiar();
                 switch (menuMod) {
                     case 1:
-                        String nuevoNombre = SLeer1.datoString("Introduce el nuevo nombre: ");
-                        String update = "UPDATE jugador SET nick = '" + nuevoNombre + "' WHERE nick = '" + nomJug + "';";
-                        PreparedStatement psUpdate = con.prepareStatement(update);
-                        psUpdate.executeUpdate();
-                        System.out.println("Nombre del jugador modificado correctamente\n\n");
-                        salir = true;
-                        break;
+
+                        boolean salida = false;
+                        while (salida != true) {
+                            String nuevoNombre = SLeer1.datoString("Introduce el nuevo nombre: ");
+                            if (existeJugador(nuevoNombre) == true) {
+
+                                System.err.println("Error, el jugador introducido ya existe.");
+
+                            } else {
+
+                                String update = "UPDATE jugador SET nick = '" + nuevoNombre + "' WHERE nick = '" + nomJug + "';";
+                                PreparedStatement psUpdate = con.prepareStatement(update);
+                                psUpdate.executeUpdate();
+                                System.out.println("Nombre del jugador modificado correctamente\n\n");
+                                salir = true;
+                                salida = true;
+                                break;
+                            }
+                        }
+
                     case 2:
                         String nuevaPassword = SLeer1.datoString("Introduce la nueva contraseña: ");
                         String update2 = "UPDATE jugador SET contraseña = '" + nuevaPassword + "' WHERE nick = '" + nomJug + "';";
@@ -132,6 +144,21 @@ public class Conexion {
         try {
             Connection con = getConexion();
             String consulta = ("SELECT nomDig FROM digimon WHERE nomDig = '" + nombre + "';");
+            PreparedStatement ps = con.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
+        }
+        return false;
+    }
+
+    public static boolean existeEvolucion(String nombre) {
+        try {
+            Connection con = getConexion();
+            String consulta = ("SELECT nomDigiEv FROM digimon WHERE nomDigiEv = '" + nombre + "';");
             PreparedStatement ps = con.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
             if (rs.next()) {
@@ -239,7 +266,7 @@ public class Conexion {
             if (existeDigimon(nomDig) == true) {
                 int menuMod = 0;
                 do {
-                    menuMod = SLeer1.datoInt("\n\nElige el campo a modificar: \n\t1 - Nombre\n\t2 - Ataque\n\t3 - Defensa\n\t4 - Tipo\n\t5 - Nivel\n\t6 - Nombre Evolución\nOpcion: ");
+                    menuMod = SLeer1.datoInt("\n\nElige el campo a modificar:\n \n1 - Nombre\n2 - Ataque\n3 - Defensa\n4 - Tipo\n5 - Nivel\n6 - Nombre Evolución\n\nOpcion: ");
                     if (menuMod < 1 && menuMod > 6) {
                         System.err.println("Error, opcion no valida");
                     }
@@ -247,13 +274,24 @@ public class Conexion {
                 SLeer1.limpiar();
                 switch (menuMod) {
                     case 1:
-                        String nuevoNombreD = SLeer1.datoString("Introduce el nuevo nombre: ");
-                        String update = "UPDATE digimon SET nomDig = '" + nuevoNombreD + "' WHERE nomDig = '" + nomDig + "';";
-                        PreparedStatement psUpdate = con.prepareStatement(update);
-                        psUpdate.executeUpdate();
-                        System.out.println("Nombre del digimon modificado correctamente\n\n");
-                        salir = true;
-                        break;
+                        boolean salirnom = false;
+                        while (salirnom != true) {
+                            String nuevoNombreD = SLeer1.datoString("Introduce el nuevo nombre: ");
+                            if (existeDigimon(nuevoNombreD) == true) {
+                                System.err.println("Error,el digimon ya existe");
+
+                            } else {
+                                String update = "UPDATE digimon SET nomDig = '" + nuevoNombreD + "' WHERE nomDig = '" + nomDig + "';";
+                                PreparedStatement psUpdate = con.prepareStatement(update);
+                                psUpdate.executeUpdate();
+                                System.out.println("Nombre del digimon modificado correctamente\n\n");
+                                salir = true;
+                                break;
+
+                            }
+
+                        }
+
                     case 2:
                         String nuevoAtaque = SLeer1.datoString("Introduce el nuevo ataque del digimon : ");
                         String update2 = "UPDATE digimon SET ataque = '" + nuevoAtaque + "' WHERE nomDig = '" + nomDig + "';";
@@ -325,13 +363,23 @@ public class Conexion {
                         salir = true;
                         break;
                     case 6:
-                        String nuevaEvolucion = SLeer1.datoString("Introduce la nueva evolucion del digimon : ");
-                        String update6 = "UPDATE digimon SET nomDigiEv  = '" + nuevaEvolucion + "' WHERE nomDig = '" + nomDig + "';";
-                        PreparedStatement psUpdate6 = con.prepareStatement(update6);
-                        psUpdate6.executeUpdate();
-                        System.out.println("Evolución modificada correctamente\n\n");
-                        salir = true;
-                        break;
+                        boolean salidaev = false;
+                        while (salidaev != true) {
+                            String nuevaEvolucion = SLeer1.datoString("Introduce la nueva evolucion del digimon : ");
+                            if (existeEvolucion(nuevaEvolucion) == true) {
+                                System.err.println("Error, la evolución introducida ya existe.");
+
+                            } else {
+                                String update6 = "UPDATE digimon SET nomDigiEv  = '" + nuevaEvolucion + "' WHERE nomDig = '" + nomDig + "';";
+                                PreparedStatement psUpdate6 = con.prepareStatement(update6);
+                                psUpdate6.executeUpdate();
+                                System.out.println("Evolución modificada correctamente\n\n");
+                                salir = true;
+                                break;
+                            }
+
+                        }
+
                 }
             } else {
                 System.err.println("El digimon " + nomDig + " no existe");
