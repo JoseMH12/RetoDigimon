@@ -26,6 +26,6 @@ CREATE TABLE tiene (
     nomDig varchar (30),
     esta_equipo ENUM ('si','no') DEFAULT 'no' ,  
     PRIMARY KEY (nick, nomDig),
-    ADD CONSTRAINT fk_tiene_jug FOREIGN KEY (nick) REFERENCES jugador (nick) ON DELETE NO ACTION ON UPDATE CASCADE,
-    ADD CONSTRAINT fk_tiene_digimon FOREIGN KEY (nomDig) REFERENCES digimon(nomDig) ON DELETE NO ACTION ON UPDATE CASCADE
+    CONSTRAINT fk_tiene_jug FOREIGN KEY (nick) REFERENCES jugador (nick) ON DELETE NO ACTION ON UPDATE CASCADE,
+    CONSTRAINT fk_tiene_digimon FOREIGN KEY (nomDig) REFERENCES digimon(nomDig) ON DELETE NO ACTION ON UPDATE CASCADE
 );
