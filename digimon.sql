@@ -7,7 +7,6 @@ CREATE TABLE jugador(
     contraseña varchar(20) not null,
     p_ganadas int DEFAULT 0,
     p_jugadas int DEFAULT 0,
-    ADD CONSTRAINT fk_tiene_jug FOREIGN KEY (nick) REFERENCES jugador (nick) ON DELETE NO ACTION ON UPDATE CASCADE;
 );
 
 CREATE TABLE digimon (
@@ -26,10 +25,7 @@ CREATE TABLE tiene (
     nick varchar (30),
     nomDig varchar (30),
     esta_equipo ENUM ('si','no') DEFAULT 'no' ,  
-    PRIMARY KEY (nick, nomDig)
+    PRIMARY KEY (nick, nomDig),
+    ADD CONSTRAINT fk_tiene_jug FOREIGN KEY (nick) REFERENCES jugador (nick) ON DELETE NO ACTION ON UPDATE CASCADE,
+    ADD CONSTRAINT fk_tiene_digimon FOREIGN KEY (nomDig) REFERENCES digimon(nomDig) ON DELETE NO ACTION ON UPDATE CASCADE
 );
-
-ALTER TABLE tiene
-
-ADD CONSTRAINT fk_tiene_jug FOREIGN KEY (nick) REFERENCES jugador (nick) ON DELETE NO ACTION ON UPDATE CASCADE,
-ADD CONSTRAINT fk_tiene_digimon FOREIGN KEY (nomDig) REFERENCES digimon(nomDig) ON DELETE NO ACTION ON UPDATE CASCADE;
