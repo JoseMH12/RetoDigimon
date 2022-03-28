@@ -145,63 +145,73 @@ public class Conexion {
 
     public static void crearDigimon() throws Exception {
         Digimon d1 = new Digimon();
+        //System.out.println(d1.getTipo());
+        boolean salir = false;
+        while (salir != true) {
+            String nomDig = SLeer1.datoString("Introduce el nombre del digimon: ");
+            d1.setNombreDig(nomDig);
 
-        String nomDig = SLeer1.datoString("Introduce el nombre del digimon: ");
-        d1.setNombreDig(nomDig);
+            if (existeDigimon(nomDig) == false) {
+                int atqDig = SLeer1.datoInt("Introduce el ataque del digimon: ");
+                d1.setAtaque(atqDig);
 
-        int atqDig = SLeer1.datoInt("Introduce el ataque del digimon: ");
-        d1.setAtaque(atqDig);
+                int defDig = SLeer1.datoInt("Introduce la defensa del digimon: ");
+                d1.setDefensa(defDig);
+                SLeer1.limpiar();
 
-        int defDig = SLeer1.datoInt("Introduce la defensa del digimon: ");
-        d1.setDefensa(defDig);
-        SLeer1.limpiar();
+                boolean bandera = false;
+                do {
+                    String t = SLeer1.datoString("Introduce el tipo (NULO,VACUNA,VIRUS,ANIMAL,PLANTA,ELEMENTAL): ").toUpperCase();
 
-        boolean bandera = false;
-        do {
-            String t = SLeer1.datoString("Introduce el tipo (NULO,VACUNA,VIRUS,ANIMAL,PLANTA,ELEMENTAL): ").toUpperCase();
+                    if (t.equals(Tipo.NULO.name())) {
+                        d1.setTipo(Tipo.NULO);
+                        bandera = true;
+                    } else if (t.equals(Tipo.VACUNA.name())) {
+                        d1.setTipo(Tipo.VACUNA);
+                        bandera = true;
+                    } else if (t.equals(Tipo.VIRUS.name())) {
+                        d1.setTipo(Tipo.VIRUS);
+                        bandera = true;
+                    } else if (t.equals(Tipo.ANIMAL.name())) {
+                        d1.setTipo(Tipo.ANIMAL);
+                        bandera = true;
+                    } else if (t.equals(Tipo.PLANTA.name())) {
+                        d1.setTipo(Tipo.PLANTA);
+                        bandera = true;
+                    } else if (t.equals(Tipo.ELEMENTAL.name())) {
+                        d1.setTipo(Tipo.ELEMENTAL);
+                        bandera = true;
+                    } else {
+                        System.err.println("Tipo no válido.\n");
+                    }
 
-            if (t.equals(Tipo.NULO.name())) {
-                d1.setTipo(Tipo.NULO);
-                bandera = true;
-            } else if (t.equals(Tipo.VACUNA.name())) {
-                d1.setTipo(Tipo.VACUNA);
-                bandera = true;
-            } else if (t.equals(Tipo.VIRUS.name())) {
-                d1.setTipo(Tipo.VIRUS);
-                bandera = true;
-            } else if (t.equals(Tipo.ANIMAL.name())) {
-                d1.setTipo(Tipo.ANIMAL);
-                bandera = true;
-            } else if (t.equals(Tipo.PLANTA.name())) {
-                d1.setTipo(Tipo.PLANTA);
-                bandera = true;
-            } else if (t.equals(Tipo.ELEMENTAL.name())) {
-                d1.setTipo(Tipo.ELEMENTAL);
-                bandera = true;
+                } while (bandera != true);
+
+                int nvlDig = SLeer1.datoInt("Introduce el nivel del Digimon: ");
+                d1.setNivel(nvlDig);
+                SLeer1.limpiar();
+
+                String evoDigEvo = SLeer1.datoString("Introduce el nombre de la digievolucion: ");
+                d1.setNombreDigEvo(evoDigEvo);
+
+                Connection con = getConexion();
+                String insertdos = "INSERT INTO digimon (nomDig, ataque, defensa, tipo, nivel, nomDigiEv) VALUES (?,?,?,?,?,?)";
+                PreparedStatement ps = con.prepareStatement(insertdos);
+                ps.setString(1, d1.getNombreDig());
+                ps.setInt(2, d1.getAtaque());
+                ps.setInt(3, d1.getDefensa());
+                ps.setString(4, d1.getTipo().name());
+                ps.setInt(5, d1.getNivel());
+                ps.setString(6, d1.getNombreDigEvo());
+                ps.executeUpdate();
+                System.out.println("Se ha agregado el digimon " + nomDig + " a la base de datos\n\n");
+                salir = true;
+
             } else {
-                System.err.println("Tipo no válido.\n");
+                System.out.println("El digimon " + nomDig + " ya existe, prueba con otro nombre.");
             }
 
-        } while (bandera != true);
-
-        int nvlDig = SLeer1.datoInt("Introduce el nivel del Digimon: ");
-        d1.setNivel(nvlDig);
-        SLeer1.limpiar();
-
-        String evoDigEvo = SLeer1.datoString("Introduce el nombre de la digievolucion: ");
-        d1.setNombreDigEvo(evoDigEvo);
-
-        Connection con = getConexion();
-        String insertdos = "INSERT INTO digimon (nomDig, ataque, defensa, tipo, nivel, nomDigiEv) VALUES (?,?,?,?,?,?)";
-        PreparedStatement ps = con.prepareStatement(insertdos);
-        ps.setString(1, d1.getNombreDig());
-        ps.setInt(2, d1.getAtaque());
-        ps.setInt(3, d1.getDefensa());
-        ps.setString(4, d1.getTipo().name());
-        ps.setInt(5, d1.getNivel());
-        ps.setString(6, d1.getNombreDigEvo());
-        ps.executeUpdate();
-        System.out.println("Se ha agregado el digimon " + nomDig + " a la base de datos\n\n");
+        }
     }
 
     public static void eliminarDigimon() throws Exception {
