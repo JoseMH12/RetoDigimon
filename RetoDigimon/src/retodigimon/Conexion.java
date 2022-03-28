@@ -15,7 +15,7 @@ public class Conexion {
 
     public static final String URL = "jdbc:mysql://localhost:3306/digimon";
     public static final String USER = "root";
-    public static final String CLAVE = "123";
+    public static final String CLAVE = "culoculo";
 
     public static Connection getConexion() {
         Connection con = null;
@@ -48,18 +48,29 @@ public class Conexion {
 
     public static void crearJugador() throws Exception {
         Jugador j1 = new Jugador();
-        String nomJug = SLeer1.datoString("Introduce el nombre de usuario: ");
-        j1.setNick(nomJug);
-        String conJug = SLeer1.datoString("Introduce la contrseña del usuario: ");
-        j1.setContrasenya(conJug);
+        boolean salir = false;
+        while (salir != true) {
+            String nomJug = SLeer1.datoString("Introduce el nombre de usuario: ");
+            j1.setNick(nomJug);
+            
 
-        Connection con = getConexion();
-        String insert = "INSERT INTO jugador (nick, contraseña) VALUES (?,?)";
-        PreparedStatement ps = con.prepareStatement(insert);
-        ps.setString(1, j1.getNick());
-        ps.setString(2, j1.getContrasenya());
-        ps.executeUpdate();
-        System.out.println("Se ha agregado el jugador " + nomJug + " a la base de datos\n\n");
+            Connection con = getConexion();
+            if (existeJugador(nomJug) == false) {
+                String conJug = SLeer1.datoString("Introduce la contraseña del usuario: ");
+                j1.setContrasenya(conJug);
+                
+                String insert = "INSERT INTO jugador (nick, contraseña) VALUES (?,?)";
+                PreparedStatement ps = con.prepareStatement(insert);
+                ps.setString(1, j1.getNick());
+                ps.setString(2, j1.getContrasenya());
+                ps.executeUpdate();
+                System.out.println("Se ha agregado el jugador " + nomJug + " a la base de datos\n\n");
+                salir = true;
+            } else {
+                System.out.println("El jugador " + nomJug + " ya existe, prueba con otro nombre.");
+            }
+        }
+
     }
 
     public static void eliminarJugador() throws Exception {

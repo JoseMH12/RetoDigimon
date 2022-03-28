@@ -62,16 +62,20 @@ public class Menu {
         }
     }*/
     public static int muestraMenu() {               //muestra menu admin
-        System.out.println("------ Menu de administrador ------\n");
-        System.out.println("\t1 - Crear jugador");
-        System.out.println("\t2 - Eliminar jugador");
-        System.out.println("\t3 - Modificar jugador");
-        System.out.println("\n\t4 - Crear digimon");
-        System.out.println("\t5 - Eliminar digimon");
-        System.out.println("\t6 - Modificar digimon");
-        System.out.println("\n\t7 - Borrar datos");
-        System.out.println("\t8 - Salir");
-        
+        System.out.println("|----------------------------------|");
+        System.out.println("|       MENU DE ADMINISTRADOR      |");
+        System.out.println("|----------------------------------|");
+        System.out.println("| \t1 - Crear jugador          |");
+        System.out.println("| \t2 - Eliminar jugador       |");
+        System.out.println("| \t3 - Modificar jugador      |");
+        System.out.println("|----------------------------------|");
+        System.out.println("| \t4 - Crear digimon          |");
+        System.out.println("| \t5 - Eliminar digimon       |");
+        System.out.println("| \t6 - Modificar digimon      |");
+        System.out.println("|----------------------------------|");
+        System.out.println("| \t7 - Borrar datos           |");
+        System.out.println("| \t8 - Salir                  |");
+        System.out.println("|----------------------------------|");
         int opcion = SLeer1.datoInt("Elige una opción: ");
         return opcion;
     }
@@ -86,7 +90,14 @@ public class Menu {
                 break;
             case 2:
                 System.out.println("\nHas elegido eliminar un nuevo jugador");
-                menuPrincipal(muestraMenu());
+                try{
+                    Conexion.eliminarJugador();
+                    menuPrincipal(muestraMenu());
+                }catch (Exception ex){
+                    System.err.println("Error: " + ex.getMessage());
+                    System.out.println("\n");
+                    menuPrincipal(muestraMenu());
+                }
                 break;
             case 3:
                 System.out.println("\nHas elegido modificar un nuevo jugador");
